@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/ivHomeGv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="15"
+        android:src="@drawable/poster_sample" />
+
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="85">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/tvHomeGvRank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:textSize="20sp"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/tvHomeGvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="영화제목" />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/tvHomeGvPlaytime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:textSize="13sp"
+                android:layout_column="1"
+                android:text=" 런타임" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

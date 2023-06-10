@@ -43,14 +43,14 @@ public class MovieRepository {
         return metadata;
     }
 
-    public String findActors(String movieId) throws IOException, CsvException {
+    public String[] findCredits(String movieId) throws IOException, CsvException {
         InputStream inputStream = assetManager.open("credits.csv");
         CSVReader csvReader = new CSVReader(new InputStreamReader(inputStream));
 
         String[] strArr;
         while((strArr = csvReader.readNext()) != null) {
             if(strArr[CreditCols.ID.ordinal()].equals(movieId))
-                return strArr[CreditCols.CAST.ordinal()];
+                return strArr;
         }
         return null;
     }
@@ -59,11 +59,12 @@ public class MovieRepository {
         InputStream inputStream = assetManager.open("links.csv");
         CSVReader csvReader = new CSVReader(new InputStreamReader(inputStream));
 
-        return csvReader.readAll()
-                .stream()
-                .filter(s -> s[LinkCols.MOVIE_ID.ordinal()].equals(movieId))
-                .findFirst()
-                .get();
+        String[] strArr;
+        while ((strArr = csvReader.readNext()) != null) {
+            if (strArr[LinkCols.MOVIE_ID.ordinal()].equals(movieId))
+                return strArr;
+        }
+        return null;
     }
 
     public boolean isNumeric(String str) {

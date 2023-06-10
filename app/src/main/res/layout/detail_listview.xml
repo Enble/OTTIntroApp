@@ -18,7 +18,7 @@
             android:src="@drawable/star" />
 
         <TextView
-            android:id="@+id/tvDetailLvStar"
+            android:id="@+id/tvDetailLvScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:layout_toRightOf="@id/tvDetailLvStar"
+            android:layout_toRightOf="@id/tvDetailLvScore"
             android:text="리뷰 제목" />
 
         <TextView

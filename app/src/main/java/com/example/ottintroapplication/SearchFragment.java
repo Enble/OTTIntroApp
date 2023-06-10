@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ottintroapplication.common.CreditCols;
 import com.example.ottintroapplication.common.MetadataCols;
 import com.example.ottintroapplication.common.MovieRepository;
 import com.example.ottintroapplication.common.SimpleMovieItem;
@@ -31,6 +32,8 @@ public class SearchFragment extends Fragment {
     private List<String[]> data = new ArrayList<>();
     private SearchListViewAdapter adapter;
     private MovieRepository movieRepository;
+    private int tmpIdx = 0;
+    private String[] credits;
 
     @Nullable
     @Override
@@ -52,6 +55,7 @@ public class SearchFragment extends Fragment {
 
         EditText etSearchTitle = v.findViewById(R.id.etSearchTitle);
         EditText etSearchActor = v.findViewById(R.id.etSearchActor);
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +81,8 @@ public class SearchFragment extends Fragment {
                         // 배우명 비교
                         String actors;
                         try {
-                            actors = movieRepository.findActors(movieId);
+                            credits = movieRepository.findCredits(movieId);
+                            actors = credits[CreditCols.CAST.ordinal()];
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         } catch (CsvException e) {
@@ -89,6 +94,8 @@ public class SearchFragment extends Fragment {
                             SimpleMovieItem item = new SimpleMovieItem(null, title, movieId, null, overview, R.drawable.poster_sample);
 
                             adapter.addItem(item);
+
+                            tmpIdx = i;
                             searched = true;
                         }
                     }
@@ -105,8 +112,19 @@ public class SearchFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                TabLayout tabLayout = view.findViewById(R.id.tabs);
-                tabLayout.getTabAt(2).select();
+                DetailFragment detail = new DetailFragment();
+                String[] metadata = data.get(tmpIdx);
+
+                Bundle bundle = new Bundle();
+                bundle.putStringArray("metadata", metadata);
+                bundle.putStringArray("credit", credits);
+                detail.setArguments(bundle);
+
+                TabLayout tabLayout = container.getRootView().findViewById(R.id.tabs);
+                TabLayout.Tab tab = tabLayout.getTabAt(2);
+                tab.select();
+
+                getParentFragmentManager().beginTransaction().replace(R.id.frame, detail).commit();
             }
         });
 

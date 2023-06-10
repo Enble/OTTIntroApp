@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.example.ottintroapplication.common.MetadataCols;
 import com.example.ottintroapplication.common.MovieRepository;
 import com.example.ottintroapplication.common.SimpleMovieItem;
+import com.google.android.material.tabs.TabLayout;
 import com.opencsv.exceptions.CsvException;
 
 import java.io.IOException;
@@ -53,13 +55,24 @@ public class SearchFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (etSearchTitle.getText().toString().equals("") ||
+                        etSearchTitle.getText().toString() == null) {
+                    Toast.makeText(v.getContext(), "영화명을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (etSearchActor.getText().toString().equals("") ||
+                        etSearchActor.getText().toString() == null) {
+                    Toast.makeText(v.getContext(), "배우명을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // 검색 구현
                 adapter.clearItems();
+                boolean searched = false;
                 for(int i=0; i<data.size(); i++) {
                     String title = data.get(i)[MetadataCols.TITLE.ordinal()];
 
-                    // TODO : 검색 안됐을 경우 토스트로 찾는 영화가 없다고 띄우기
-                    if(title.equals(etSearchTitle.getText().toString())) {
+                    if (title.equals(etSearchTitle.getText().toString())) {
                         String movieId = data.get(i)[MetadataCols.ID.ordinal()];
                         // 배우명 비교
                         String actors;
@@ -71,22 +84,29 @@ public class SearchFragment extends Fragment {
                             throw new RuntimeException(e);
                         }
 
-                        if(actors == null) {
-                            // TODO : 배우를 못 찾았을 때 처리
-                        }
-
-                        if(actors.contains(etSearchActor.getText().toString())) {
+                        if (actors.contains(etSearchActor.getText().toString())) {
                             String overview = data.get(i)[MetadataCols.OVERVIEW.ordinal()];
                             SimpleMovieItem item = new SimpleMovieItem(null, title, movieId, null, overview, R.drawable.poster_sample);
 
                             adapter.addItem(item);
-                        }
-                        else {
-                            // TODO : 토스트로 찾는 영화가 없다고 띄우기
+                            searched = true;
                         }
                     }
                 }
+
+                if(searched == false) {
+                    Toast.makeText(v.getContext(), "찾는 영화가 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                TabLayout tabLayout = view.findViewById(R.id.tabs);
+                tabLayout.getTabAt(2).select();
             }
         });
 

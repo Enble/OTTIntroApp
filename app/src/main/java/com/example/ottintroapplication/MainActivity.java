@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
+import com.example.ottintroapplication.common.MetadataCols;
 import com.example.ottintroapplication.common.MovieRepository;
 import com.google.android.material.tabs.TabLayout;
 import com.opencsv.exceptions.CsvException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,11 +43,19 @@ public class MainActivity extends AppCompatActivity {
 
         // HomeFragment에 Bundle로 repository에 있는 값 넘기기
         Bundle bundle = new Bundle();
+
+        int tmpIdx = 0;
+        double avg = 0.0;
         for(int i=0; i<100; i++) {
+            if(Double.parseDouble(data.get(i)[MetadataCols.VOTE_AVERAGE.ordinal()]) > avg) {
+                tmpIdx = i;
+            }
             bundle.putStringArray("item" + i, data.get(i));
         }
         home.setArguments(bundle);
         search.setArguments(bundle);
+
+        String[] tmpStringArr = data.get(tmpIdx);
 
         getSupportFragmentManager().beginTransaction().add(R.id.frame, home).commit();
 
@@ -61,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
                 } else if(pos == 1) {
                     selected = search;
                 } else {
+                    Bundle defaultBundle = new Bundle();
+                    defaultBundle.putStringArray("item", tmpStringArr);
+                    detail.setArguments(defaultBundle);
+
                     selected = detail;
                 }
 

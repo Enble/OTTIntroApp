@@ -17,6 +17,11 @@ public class SearchListViewAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<SimpleMovieItem> items = new ArrayList<>();
 
+    // TODO: test
+    public ArrayList<SimpleMovieItem> getItems() {
+        return items;
+    }
+
     public SearchListViewAdapter(Context context) {
         this.context = context;
     }

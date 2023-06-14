@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dlgReview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="유저 이름"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/etReviewDlgUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="유저 이름을 입력하세요"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="리뷰 제목"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/etReviewDlgTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="리뷰 제목을 입력하세요"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="리뷰 내용"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/etReviewDlgContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:minLines="10" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="    평 점    "
+            android:layout_gravity="center"
+            android:textSize="15sp" />
+
+        <RatingBar
+            android:id="@+id/rbDlg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnReviewDlgPositive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="center"
+            android:text="리뷰 작성" />
+
+        <Button
+            android:id="@+id/btnReviewDlgNegative"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="center"
+            android:text="취소" />
+
+    </LinearLayout>
+
+</LinearLayout>

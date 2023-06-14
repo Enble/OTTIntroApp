@@ -1,7 +1,10 @@
-package com.example.ottintroapplication.common;
+package com.example.ottintroapplication.repository;
 
 import android.content.res.AssetManager;
 
+import com.example.ottintroapplication.common.cols.CreditCols;
+import com.example.ottintroapplication.common.cols.LinkCols;
+import com.example.ottintroapplication.common.cols.MetadataCols;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 

@@ -1,4 +1,4 @@
-package com.example.ottintroapplication.common;
+package com.example.ottintroapplication.dto;
 
 public class SimpleMovieItem {
 

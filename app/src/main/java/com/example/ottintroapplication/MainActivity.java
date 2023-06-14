@@ -5,22 +5,21 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
-import com.example.ottintroapplication.common.MetadataCols;
-import com.example.ottintroapplication.common.MovieRepository;
+import com.example.ottintroapplication.common.cols.MetadataCols;
+import com.example.ottintroapplication.repository.MovieRepository;
 import com.google.android.material.tabs.TabLayout;
 import com.opencsv.exceptions.CsvException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private MovieRepository movieRepository;
     private List<String[]> data;
 
-    private Fragment home;
-    private Fragment search;
-    private Fragment detail;
+    private HomeFragment home;
+    private SearchFragment search;
+    private DetailFragment detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +40,37 @@ public class MainActivity extends AppCompatActivity {
         search = new SearchFragment();
         detail = new DetailFragment();
 
-        // HomeFragment에 Bundle로 repository에 있는 값 넘기기
+        // Home과 Search에 Bundle로 metadata 넘기기
         Bundle bundle = new Bundle();
 
-        int tmpIdx = 0;
+        // detail로 넘어갈 metadata 정하기
+        int metadataIdx = 0;
         double avg = 0.0;
-        for(int i=0; i<100; i++) {
-            if(Double.parseDouble(data.get(i)[MetadataCols.VOTE_AVERAGE.ordinal()]) > avg) {
-                tmpIdx = i;
+        for(int i=0; i<data.size(); i++) {
+            double tmp = Double.parseDouble(data.get(i)[MetadataCols.VOTE_AVERAGE.ordinal()]);
+            if(tmp > avg) {
+                metadataIdx = i;
+                avg = tmp;
             }
             bundle.putStringArray("item" + i, data.get(i));
         }
         home.setArguments(bundle);
         search.setArguments(bundle);
 
-        String[] tmpStringArr = data.get(tmpIdx);
+        String[] metadataStrArr = data.get(metadataIdx);
 
+        // detail로 넘어갈 credit 정하기
+        String movieId = metadataStrArr[MetadataCols.ID.ordinal()];
+        String[] creditStrArr;
+        try {
+            creditStrArr = movieRepository.findCredits(movieId);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (CsvException e) {
+            throw new RuntimeException(e);
+        }
+
+        // 기본 프래그먼트 : Home
         getSupportFragmentManager().beginTransaction().add(R.id.frame, home).commit();
 
         TabLayout tabs = findViewById(R.id.tabs);
@@ -72,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
                     selected = search;
                 } else {
                     Bundle defaultBundle = new Bundle();
-                    defaultBundle.putStringArray("item", tmpStringArr);
+                    defaultBundle.putStringArray("metadata", metadataStrArr);
+                    defaultBundle.putStringArray("credit", creditStrArr);
                     detail.setArguments(defaultBundle);
 
                     selected = detail;

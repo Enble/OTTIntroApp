@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.ottintroapplication.common.MetadataCols;
-import com.example.ottintroapplication.common.SimpleMovieItem;
+import com.example.ottintroapplication.common.cols.MetadataCols;
+import com.example.ottintroapplication.dto.SimpleMovieItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,15 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/ivDetailLv"
+            android:id="@+id/ivDetailRv"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginLeft="5dp"
@@ -18,41 +17,45 @@
             android:src="@drawable/star" />
 
         <TextView
-            android:id="@+id/tvDetailLvScore"
+            android:id="@+id/tvDetailRvStar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
             android:layout_marginRight="5dp"
-            android:layout_toRightOf="@id/ivDetailLv"
+            android:layout_toRightOf="@id/ivDetailRv"
             android:text="6/10" />
 
         <TextView
-            android:id="@+id/tvDetailLvReviewTitle"
+            android:id="@+id/tvDetailRvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:layout_toRightOf="@id/tvDetailLvScore"
+            android:layout_toRightOf="@id/tvDetailRvStar"
+            android:textStyle="bold"
             android:text="리뷰 제목" />
 
         <TextView
-            android:id="@+id/tvDetailReviewUserId"
+            android:id="@+id/tvDetailRvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:layout_toLeftOf="@id/tvDetailLvReviewDate"
+            android:layout_toLeftOf="@id/tvDetailRvDate"
+            android:layout_below="@id/tvDetailRvTitle"
             android:text="유저 이름" />
 
         <TextView
-            android:id="@+id/tvDetailLvReviewDate"
+            android:id="@+id/tvDetailRvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/tvDetailRvTitle"
             android:text="리뷰 날짜" />
 
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tvDetailLvReviewContent"
+        android:id="@+id/tvDetailRvContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"

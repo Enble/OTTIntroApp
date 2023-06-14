@@ -1,4 +1,4 @@
-package com.example.ottintroapplication.common;
+package com.example.ottintroapplication.common.cols;
 
 public enum MetadataCols {
     ADULT,

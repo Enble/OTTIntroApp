@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ottintroapplication.common.SimpleMovieItem;
+import com.example.ottintroapplication.dto.SimpleMovieItem;
 
 import java.util.ArrayList;
 
@@ -16,11 +16,6 @@ public class SearchListViewAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<SimpleMovieItem> items = new ArrayList<>();
-
-    // TODO: test
-    public ArrayList<SimpleMovieItem> getItems() {
-        return items;
-    }
 
     public SearchListViewAdapter(Context context) {
         this.context = context;
